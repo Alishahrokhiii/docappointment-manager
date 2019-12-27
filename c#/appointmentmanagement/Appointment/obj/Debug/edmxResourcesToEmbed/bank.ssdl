@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="appointmentModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="appointmentModelStoreContainer">
+    <EntitySet Name="Login" EntityType="appointmentModel.Store.Login" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="patient_info" EntityType="appointmentModel.Store.patient_info" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Reserve_info" EntityType="appointmentModel.Store.Reserve_info" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="show_reserve" EntityType="appointmentModel.Store.show_reserve" store:Type="Views" store:Schema="dbo" store:Name="show_reserve">
+      <DefiningQuery>SELECT 
+      [show_reserve].[sh_bimar] AS [sh_bimar], 
+      [show_reserve].[fname] AS [fname], 
+      [show_reserve].[lname] AS [lname], 
+      [show_reserve].[date] AS [date], 
+      [show_reserve].[az_hour] AS [az_hour], 
+      [show_reserve].[ta_hour] AS [ta_hour]
+      FROM [dbo].[show_reserve] AS [show_reserve]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Reserve_info_patient_info" Association="appointmentModel.Store.FK_Reserve_info_patient_info">
+      <End Role="patient_info" EntitySet="patient_info" />
+      <End Role="Reserve_info" EntitySet="Reserve_info" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="fname" Type="nchar" MaxLength="10" />
+    <Property Name="lname" Type="nchar" MaxLength="10" />
+    <Property Name="username" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" />
+    <Property Name="usertype" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="patient_info">
+    <Key>
+      <PropertyRef Name="sh_bimar" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="sh_bimar" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="fname" Type="nvarchar" MaxLength="50" />
+    <Property Name="lname" Type="nvarchar" MaxLength="50" />
+    <Property Name="mobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="age" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Reserve_info">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="sh_bimar" Type="nvarchar" MaxLength="50" />
+    <Property Name="date" Type="nvarchar" MaxLength="50" />
+    <Property Name="az_hour" Type="nvarchar" MaxLength="50" />
+    <Property Name="ta_hour" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'appointment.dbo.show_reserve' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="show_reserve">
+    <Key>
+      <PropertyRef Name="sh_bimar" />
+    </Key>
+    <Property Name="sh_bimar" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="fname" Type="nvarchar" MaxLength="50" />
+    <Property Name="lname" Type="nvarchar" MaxLength="50" />
+    <Property Name="date" Type="nvarchar" MaxLength="50" />
+    <Property Name="az_hour" Type="nvarchar" MaxLength="50" />
+    <Property Name="ta_hour" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Reserve_info_patient_info">
+    <End Role="patient_info" Type="appointmentModel.Store.patient_info" Multiplicity="0..1" />
+    <End Role="Reserve_info" Type="appointmentModel.Store.Reserve_info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient_info">
+        <PropertyRef Name="sh_bimar" />
+      </Principal>
+      <Dependent Role="Reserve_info">
+        <PropertyRef Name="sh_bimar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="GetAllUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="nchar" Mode="In" />
+    <Parameter Name="password" Type="nchar" Mode="In" />
+  </Function>
+</Schema>

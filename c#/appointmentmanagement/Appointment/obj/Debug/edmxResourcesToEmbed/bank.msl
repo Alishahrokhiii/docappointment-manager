@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="appointmentModelStoreContainer" CdmEntityContainer="appointmentEntities">
+    <EntitySetMapping Name="patient_info">
+      <EntityTypeMapping TypeName="appointmentModel.patient_info">
+        <MappingFragment StoreEntitySet="patient_info">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="sh_bimar" ColumnName="sh_bimar" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reserve_info">
+      <EntityTypeMapping TypeName="appointmentModel.Reserve_info">
+        <MappingFragment StoreEntitySet="Reserve_info">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="sh_bimar" ColumnName="sh_bimar" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="az_hour" ColumnName="az_hour" />
+          <ScalarProperty Name="ta_hour" ColumnName="ta_hour" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="show_reserve">
+      <EntityTypeMapping TypeName="appointmentModel.show_reserve">
+        <MappingFragment StoreEntitySet="show_reserve">
+          <ScalarProperty Name="sh_bimar" ColumnName="sh_bimar" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="az_hour" ColumnName="az_hour" />
+          <ScalarProperty Name="ta_hour" ColumnName="ta_hour" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetAllUser" FunctionName="appointmentModel.Store.GetAllUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="appointmentModel.GetAllUser_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="usertype" ColumnName="usertype" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUser" FunctionName="appointmentModel.Store.GetUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="appointmentModel.GetUser_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="usertype" ColumnName="usertype" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Logins">
+      <EntityTypeMapping TypeName="appointmentModel.Login">
+        <MappingFragment StoreEntitySet="Login">
+          <ScalarProperty Name="usertype" ColumnName="usertype" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

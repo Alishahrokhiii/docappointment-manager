@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="matabModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="matabModelStoreContainer">
+    <EntitySet Name="Patient" EntityType="matabModel.Store.Patient" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="reserve" EntityType="matabModel.Store.reserve" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="matabModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="resview" EntityType="matabModel.Store.resview" store:Type="Views" store:Schema="dbo" store:Name="resview">
+      <DefiningQuery>SELECT 
+      [resview].[ID] AS [ID], 
+      [resview].[Sh_bimar] AS [Sh_bimar], 
+      [resview].[fname] AS [fname], 
+      [resview].[lname] AS [lname], 
+      [resview].[mobile] AS [mobile], 
+      [resview].[date_reserve] AS [date_reserve], 
+      [resview].[az_hour] AS [az_hour], 
+      [resview].[ta_hour] AS [ta_hour]
+      FROM [dbo].[resview] AS [resview]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Patient_Patient" Association="matabModel.Store.FK_Patient_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="Patient1" EntitySet="Patient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reserve_Patient" Association="matabModel.Store.FK_reserve_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="reserve" EntitySet="reserve" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Sh_bimar" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="50" />
+    <Property Name="Sh_bimar" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="fname" Type="varchar" MaxLength="50" />
+    <Property Name="lname" Type="varchar" MaxLength="50" />
+    <Property Name="mobile" Type="varchar" MaxLength="50" />
+    <Property Name="age" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="reserve">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Sh_bimar" Type="varchar" MaxLength="50" />
+    <Property Name="date_reserve" Type="varchar" MaxLength="50" />
+    <Property Name="az_hour" Type="varchar" MaxLength="50" />
+    <Property Name="ta_hour" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="50" />
+    <Property Name="username" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="fname" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'matab.dbo.resview' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="resview">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Sh_bimar" Type="varchar" MaxLength="50" />
+    <Property Name="fname" Type="varchar" MaxLength="50" />
+    <Property Name="lname" Type="varchar" MaxLength="50" />
+    <Property Name="mobile" Type="varchar" MaxLength="50" />
+    <Property Name="date_reserve" Type="varchar" MaxLength="50" />
+    <Property Name="az_hour" Type="varchar" MaxLength="50" />
+    <Property Name="ta_hour" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Patient_Patient">
+    <End Role="Patient" Type="matabModel.Store.Patient" Multiplicity="1" />
+    <End Role="Patient1" Type="matabModel.Store.Patient" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Sh_bimar" />
+      </Principal>
+      <Dependent Role="Patient1">
+        <PropertyRef Name="Sh_bimar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reserve_Patient">
+    <End Role="Patient" Type="matabModel.Store.Patient" Multiplicity="0..1" />
+    <End Role="reserve" Type="matabModel.Store.reserve" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Sh_bimar" />
+      </Principal>
+      <Dependent Role="reserve">
+        <PropertyRef Name="Sh_bimar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="AddRes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="varchar" Mode="In" />
+    <Parameter Name="Sh_Bimar" Type="varchar" Mode="In" />
+    <Parameter Name="date_reserve" Type="varchar" Mode="In" />
+    <Parameter Name="az_hour" Type="varchar" Mode="In" />
+    <Parameter Name="ta_hour" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="CreatePatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="varchar" Mode="In" />
+    <Parameter Name="Sh_Bimar" Type="varchar" Mode="In" />
+    <Parameter Name="fname" Type="varchar" Mode="In" />
+    <Parameter Name="lname" Type="varchar" Mode="In" />
+    <Parameter Name="mobile" Type="varchar" Mode="In" />
+    <Parameter Name="age" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="GetAlluser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Show" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Showres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+</Schema>

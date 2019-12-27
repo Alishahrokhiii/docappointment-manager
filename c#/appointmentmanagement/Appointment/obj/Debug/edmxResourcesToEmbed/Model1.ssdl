@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="matabModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="matabModelStoreContainer">
+    <EntitySet Name="Patient" EntityType="matabModel.Store.Patient" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="reserve" EntityType="matabModel.Store.reserve" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="matabModel.Store.Users" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Sh_bimar" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="50" />
+    <Property Name="Sh_bimar" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="fname" Type="varchar" MaxLength="50" />
+    <Property Name="lname" Type="varchar" MaxLength="50" />
+    <Property Name="mobile" Type="varchar" MaxLength="50" />
+    <Property Name="age" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="reserve">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Sh_bimar" Type="varchar" MaxLength="50" />
+    <Property Name="date_reserve" Type="varchar" MaxLength="50" />
+    <Property Name="az_hour" Type="varchar" MaxLength="50" />
+    <Property Name="ta_hour" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="50" />
+    <Property Name="username" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Function Name="AddRes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="varchar" Mode="In" />
+    <Parameter Name="Sh_Bimar" Type="varchar" Mode="In" />
+    <Parameter Name="date_reserve" Type="varchar" Mode="In" />
+    <Parameter Name="az_hour" Type="varchar" Mode="In" />
+    <Parameter Name="ta_hour" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="CreatePatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="varchar" Mode="In" />
+    <Parameter Name="Sh_Bimar" Type="varchar" Mode="In" />
+    <Parameter Name="fname" Type="varchar" Mode="In" />
+    <Parameter Name="lname" Type="varchar" Mode="In" />
+    <Parameter Name="mobile" Type="varchar" Mode="In" />
+    <Parameter Name="age" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="GetAlluser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Show" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Showres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+</Schema>

@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="matabModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="matabEntities3" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Patients" EntityType="matabModel.Patient" />
+    <EntitySet Name="reserves" EntityType="matabModel.reserve" />
+    <EntitySet Name="Users" EntityType="matabModel.User" />
+    <EntitySet Name="resviews" EntityType="matabModel.resview" />
+    <AssociationSet Name="FK_Patient_Patient" Association="matabModel.FK_Patient_Patient">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="Patient1" EntitySet="Patients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reserve_Patient" Association="matabModel.FK_reserve_Patient">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="reserve" EntitySet="reserves" />
+    </AssociationSet>
+    <FunctionImport Name="AddRes">
+      <Parameter Name="ID" Mode="In" Type="String" />
+      <Parameter Name="Sh_Bimar" Mode="In" Type="String" />
+      <Parameter Name="date_reserve" Mode="In" Type="String" />
+      <Parameter Name="az_hour" Mode="In" Type="String" />
+      <Parameter Name="ta_hour" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="CreatePatient">
+      <Parameter Name="ID" Mode="In" Type="String" />
+      <Parameter Name="Sh_Bimar" Mode="In" Type="String" />
+      <Parameter Name="fname" Mode="In" Type="String" />
+      <Parameter Name="lname" Mode="In" Type="String" />
+      <Parameter Name="mobile" Mode="In" Type="String" />
+      <Parameter Name="age" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetAlluser" ReturnType="Collection(matabModel.GetAlluser_Result)" />
+    <FunctionImport Name="Show" ReturnType="Collection(matabModel.Show_Result)" />
+    <FunctionImport Name="Showres" ReturnType="Collection(matabModel.Showres_Result)" />
+  </EntityContainer>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Sh_bimar" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Sh_bimar" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="fname" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="lname" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="mobile" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="age" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Patient1" Relationship="matabModel.FK_Patient_Patient" FromRole="Patient" ToRole="Patient1" />
+    <NavigationProperty Name="Patient2" Relationship="matabModel.FK_Patient_Patient" FromRole="Patient1" ToRole="Patient" />
+    <NavigationProperty Name="reserves" Relationship="matabModel.FK_reserve_Patient" FromRole="Patient" ToRole="reserve" />
+  </EntityType>
+  <EntityType Name="reserve">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Sh_bimar" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="date_reserve" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="az_hour" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="ta_hour" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Patient" Relationship="matabModel.FK_reserve_Patient" FromRole="reserve" ToRole="Patient" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Password" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="fname" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="resview">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Sh_bimar" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="fname" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="lname" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="mobile" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="date_reserve" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="az_hour" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="ta_hour" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Patient_Patient">
+    <End Role="Patient" Type="matabModel.Patient" Multiplicity="1" />
+    <End Role="Patient1" Type="matabModel.Patient" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Sh_bimar" />
+      </Principal>
+      <Dependent Role="Patient1">
+        <PropertyRef Name="Sh_bimar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reserve_Patient">
+    <End Role="Patient" Type="matabModel.Patient" Multiplicity="0..1" />
+    <End Role="reserve" Type="matabModel.reserve" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Sh_bimar" />
+      </Principal>
+      <Dependent Role="reserve">
+        <PropertyRef Name="Sh_bimar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="GetAlluser_Result">
+    <Property Type="String" Name="ID" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="username" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="fname" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="Show_Result">
+    <Property Type="String" Name="ID" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Sh_bimar" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="fname" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="lname" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="mobile" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="age" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="Showres_Result">
+    <Property Type="String" Name="ID" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Sh_bimar" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="fname" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="lname" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="mobile" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="date_reserve" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="az_hour" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ta_hour" Nullable="true" MaxLength="50" />
+  </ComplexType>
+</Schema>

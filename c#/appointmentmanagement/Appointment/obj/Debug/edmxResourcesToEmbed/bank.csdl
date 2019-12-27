@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="appointmentModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="appointmentEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="patient_info" EntityType="appointmentModel.patient_info" />
+    <EntitySet Name="Reserve_info" EntityType="appointmentModel.Reserve_info" />
+    <EntitySet Name="show_reserve" EntityType="appointmentModel.show_reserve" />
+    <AssociationSet Name="FK_Reserve_info_patient_info" Association="appointmentModel.FK_Reserve_info_patient_info">
+      <End Role="patient_info" EntitySet="patient_info" />
+      <End Role="Reserve_info" EntitySet="Reserve_info" />
+    </AssociationSet>
+    <FunctionImport Name="GetAllUser" ReturnType="Collection(appointmentModel.GetAllUser_Result)" />
+    <FunctionImport Name="GetUser" ReturnType="Collection(appointmentModel.GetUser_Result)">
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Logins" EntityType="appointmentModel.Login" />
+  </EntityContainer>
+  <EntityType Name="patient_info">
+    <Key>
+      <PropertyRef Name="sh_bimar" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="sh_bimar" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="fname" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="lname" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="mobile" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="age" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Reserve_info" Relationship="appointmentModel.FK_Reserve_info_patient_info" FromRole="patient_info" ToRole="Reserve_info" />
+  </EntityType>
+  <EntityType Name="Reserve_info">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="sh_bimar" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="date" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="az_hour" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="ta_hour" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="patient_info" Relationship="appointmentModel.FK_Reserve_info_patient_info" FromRole="Reserve_info" ToRole="patient_info" />
+  </EntityType>
+  <EntityType Name="show_reserve">
+    <Key>
+      <PropertyRef Name="sh_bimar" />
+    </Key>
+    <Property Name="sh_bimar" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="fname" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="lname" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="date" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="az_hour" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="ta_hour" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Reserve_info_patient_info">
+    <End Role="patient_info" Type="appointmentModel.patient_info" Multiplicity="0..1" />
+    <End Role="Reserve_info" Type="appointmentModel.Reserve_info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient_info">
+        <PropertyRef Name="sh_bimar" />
+      </Principal>
+      <Dependent Role="Reserve_info">
+        <PropertyRef Name="sh_bimar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="GetAllUser_Result">
+    <Property Type="String" Name="ID" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="fname" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="lname" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="username" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="password" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="usertype" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="GetUser_Result">
+    <Property Type="String" Name="ID" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="fname" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="lname" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="username" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="password" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="usertype" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="String" Name="ID" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="fname" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="lname" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="username" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="password" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="usertype" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="matabModelStoreContainer" CdmEntityContainer="matabEntities3">
+    <EntitySetMapping Name="Patients">
+      <EntityTypeMapping TypeName="matabModel.Patient">
+        <MappingFragment StoreEntitySet="Patient">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Sh_bimar" ColumnName="Sh_bimar" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="reserves">
+      <EntityTypeMapping TypeName="matabModel.reserve">
+        <MappingFragment StoreEntitySet="reserve">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Sh_bimar" ColumnName="Sh_bimar" />
+          <ScalarProperty Name="date_reserve" ColumnName="date_reserve" />
+          <ScalarProperty Name="az_hour" ColumnName="az_hour" />
+          <ScalarProperty Name="ta_hour" ColumnName="ta_hour" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="matabModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="resviews">
+      <EntityTypeMapping TypeName="matabModel.resview">
+        <MappingFragment StoreEntitySet="resview">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Sh_bimar" ColumnName="Sh_bimar" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="date_reserve" ColumnName="date_reserve" />
+          <ScalarProperty Name="az_hour" ColumnName="az_hour" />
+          <ScalarProperty Name="ta_hour" ColumnName="ta_hour" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddRes" FunctionName="matabModel.Store.AddRes" />
+    <FunctionImportMapping FunctionImportName="CreatePatient" FunctionName="matabModel.Store.CreatePatient" />
+    <FunctionImportMapping FunctionImportName="GetAlluser" FunctionName="matabModel.Store.GetAlluser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="matabModel.GetAlluser_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Show" FunctionName="matabModel.Store.Show">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="matabModel.Show_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Sh_bimar" ColumnName="Sh_bimar" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="age" ColumnName="age" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Showres" FunctionName="matabModel.Store.Showres">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="matabModel.Showres_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Sh_bimar" ColumnName="Sh_bimar" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="date_reserve" ColumnName="date_reserve" />
+          <ScalarProperty Name="az_hour" ColumnName="az_hour" />
+          <ScalarProperty Name="ta_hour" ColumnName="ta_hour" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

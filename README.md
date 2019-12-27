@@ -1,2 +1,2 @@
-# docappointment-manager
-Simple Doc manager
+# appointment-manager
+Simple appointment manager
